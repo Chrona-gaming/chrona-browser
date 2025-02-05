@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Proxy Example</title>
+</head>
+<body>
+    <h1>Simple Proxy Example</h1>
+    <input type="text" id="url" placeholder="Enter URL to fetch" />
+    <button id="fetchBtn">Fetch Data</button>
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById('fetchBtn').addEventListener('click', async () => {
+            const url = document.getElementById('url').value;
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors', // Ensure CORS mode is enabled
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.text();
+                document.getElementById('response').innerText = data;
+            } catch (error) {
+                document.getElementById('response').innerText = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
